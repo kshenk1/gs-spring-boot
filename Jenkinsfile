@@ -24,7 +24,7 @@ spec:
       steps {
         container('maven') {
           configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: 'complete/settings.xml')]) {
-            sh 'mvn deploy -f ./complete/pom.xml'
+            sh 'mvn deploy -X -f ./complete/pom.xml'
           }
         }
       }
