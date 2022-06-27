@@ -22,7 +22,7 @@ spec:
   stages {
     stage('Run Maven') {
       steps {
-        container('maven') {
+        container('Maven Deploy') {
           configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: './complete/settings.xml')]) {
             sh 'mvn deploy -s ./complete/settings.xml -f ./complete/pom.xml'
           }
@@ -33,7 +33,7 @@ spec:
       steps {
         container('maven') {
           configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: './complete/settings.xml')]) {
-            sh 'mvn sonar:sonar -f ./complete/pom.xml'
+            sh 'mvn sonar:sonar -s ./complete/settings.xml -f ./complete/pom.xml'
           }
         }
       }
