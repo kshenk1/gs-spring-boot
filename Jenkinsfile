@@ -2,6 +2,11 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '0'))
   }
+
+  environment {
+    DOCKER_IMAGE = "danielrmartin/sko:1.2"
+  }
+
   agent {
     kubernetes {
       //cloud 'kubernetes'
@@ -11,12 +16,13 @@ kind: Pod
 spec:
   containers:
   - name: maven
-    image: danielrmartin/sko:1.2
+    image: $DOCKER_IMAGE
     command: ['cat']
     tty: true
 """
     }
   }
+
   stages {
     stage('Run Maven') {
       steps {
@@ -25,10 +31,12 @@ spec:
         }
       }
     }
-    stage ('Run Sonarqube'){
-      steps{
-        container('maven'){
+    stage('Run Sonarqube') {
+      steps {
+        container('maven') {
           sh 'mvn sonar:sonar -f ./complete/pom.xml'
-        }}}
+        }
+      }
+    }
   }
 }
