@@ -3,10 +3,6 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '0'))
   }
 
-  environment {
-    DOCKER_IMAGE = "danielrmartin/sko:1.2"
-  }
-
   agent {
     kubernetes {
       //cloud 'kubernetes'
@@ -16,7 +12,7 @@ kind: Pod
 spec:
   containers:
   - name: maven
-    image: $DOCKER_IMAGE
+    image: danielrmartin/sko:1.2
     command: ['cat']
     tty: true
 """
