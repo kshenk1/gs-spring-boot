@@ -23,14 +23,18 @@ spec:
     stage('Run Maven') {
       steps {
         container('maven') {
-          sh 'mvn deploy -f ./complete/pom.xml'
+          configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: 'settings.xml')]) {
+            sh 'mvn deploy -f ./complete/pom.xml'
+          }
         }
       }
     }
     stage('Run Sonarqube') {
       steps {
         container('maven') {
-          sh 'mvn sonar:sonar -f ./complete/pom.xml'
+          configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: 'settings.xml')]) {
+            sh 'mvn sonar:sonar -f ./complete/pom.xml'
+          }
         }
       }
     }

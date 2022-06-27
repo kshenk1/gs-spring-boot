@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings
+	xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<profiles>
+		<profile>
+			<id>jdk-1.4</id>
+			<activation>
+				<jdk>1.4</jdk>
+			</activation>
+			<repositories>
+				<repository>
+					<id>jdk14</id>
+					<name>Repository for JDK 1.4 builds</name>
+					<url>http://www.myhost.com/maven/jdk14</url>
+					<layout>default</layout>
+				</repository>
+			</repositories>
+		</profile>
+		<profile>
+			<id>sonar</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Optional URL to server. Default value is http://localhost:9000 -->
+				<sonar.host.url>http://sonarqube.cbci-demo.com/</sonar.host.url>
+				<sonar.login>thetoken</sonar.login>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-dev</id>
+			<activation>
+				<property>
+					<name>target-env</name>
+					<value>dev</value>
+				</property>
+			</activation>
+			<properties>
+				<tomcatPath>/path/to/tomcat/instance</tomcatPath>
+			</properties>
+		</profile>
+	</profiles>
+	<servers>
+		<server>
+			<id>maven-releases</id>
+			<username>USERNAME</username>
+			<password>PASSWORD</password>
+		</server>
+		<server>
+			<id>maven-snapshots</id>
+			<username>USERNAME</username>
+			<password>PASSWORD</password>
+		</server>
+	</servers>
+</settings>
