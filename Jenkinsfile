@@ -31,5 +31,17 @@ pipeline {
         }
       }
     }
+    stage('Ping CD') {
+      steps {
+        cloudBeesFlowRunPipeline addParam: '
+          {"pipeline": {
+            "pipelineName":"spring-boot",
+            "parameters":[]
+          }}', 
+          configuration: 'kshenk-cd-flow', 
+          pipelineName: 'spring-boot', 
+          projectName: 'CloudBees'
+      }
+    }
   }
 }
