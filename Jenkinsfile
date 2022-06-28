@@ -33,7 +33,7 @@ pipeline {
     }
     stage('Ping CD') {
       steps {
-        cloudBeesFlowRunPipeline addParam: '{"pipeline": {"pipelineName":"spring-boot","parameters":[]}}', 
+        cloudBeesFlowRunPipeline addParam: '{"pipeline": {"pipelineName":"spring-boot","parameters":[{"parameterName":"jobName","parameterValue":"$JOB_NAME"},{"parameterName":"buildNumber","parameterValue":"$BUILD_NUMBER"},{"parameterName":"branchName","parameterValue":"$BRANCH_NAME"}]}}', 
           configuration: 'kshenk-cd-flow', 
           pipelineName: 'spring-boot', 
           projectName: 'CloudBees'
