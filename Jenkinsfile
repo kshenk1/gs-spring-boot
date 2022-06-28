@@ -14,7 +14,8 @@ pipeline {
       steps {
         configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: './complete/settings.xml')]) {
           container('maven') {
-            sh 'mvn --no-transfer-progress \
+            // transfer progress needed here to parse the output.
+            sh 'mvn \
               deploy -s ./complete/settings.xml -f ./complete/pom.xml'
           }
         }
