@@ -5,5 +5,9 @@ spec:
   containers:
   - name: maven
     image: maven:3.8.6-openjdk-8-slim
-    command: ['cat']
+    env:
+      - name: HTTP_PROXY
+        value: null
+      - name: HTTPS_PROXY
+        value: null
     tty: true
