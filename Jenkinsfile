@@ -14,7 +14,8 @@ pipeline {
       steps {
         configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: './complete/settings.xml')]) {
           container('maven') {
-            sh 'mvn deploy -s ./complete/settings.xml -f ./complete/pom.xml'
+            sh 'mvn --no-transfer-progress \
+              deploy -s ./complete/settings.xml -f ./complete/pom.xml'
           }
         }
       }
@@ -23,7 +24,8 @@ pipeline {
       steps {
         configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: './complete/settings.xml')]) {
           container('maven') {
-            sh 'mvn sonar:sonar -s ./complete/settings.xml -f ./complete/pom.xml'
+            sh 'mvn --no-transfer-progress \
+              sonar:sonar -s ./complete/settings.xml -f ./complete/pom.xml'
           }
         }
       }
