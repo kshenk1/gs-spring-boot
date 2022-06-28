@@ -10,4 +10,5 @@ spec:
         value: null
       - name: HTTPS_PROXY
         value: null
+    command: ['cat']
     tty: true
