@@ -37,7 +37,8 @@ pipeline {
           container('maven') {
             sh 'mvn \
               release:clean release:prepare release:perform \
-              -s ./complete/settings.xml -f ./complete/pom.xml'
+              -s ./complete/settings.xml -f ./complete/pom.xml \
+              -DbuildNumber=${BUILD_NUMBER}'
           }
         }
       }
