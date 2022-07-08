@@ -31,6 +31,17 @@ pipeline {
         }
       }
     }
+    stage('MVN Release') {
+      steps {
+        configFileProvider([configFile(fileId: 'maven-nexus-settings', targetLocation: './complete/settings.xml')]) {
+          container('maven') {
+            sh 'mvn \
+              release:clean release:prepare release:perform \
+              -s ./complete/settings.xml -f ./complete/pom.xml'
+          }
+        }
+      }
+    }
     stage('Ping CD') {
       steps {
         cloudBeesFlowRunPipeline addParam: '{"pipeline": {"pipelineName":"spring-boot","parameters":[{"parameterName":"jobName","parameterValue":"$JOB_NAME"},{"parameterName":"buildNumber","parameterValue":"$BUILD_NUMBER"},{"parameterName":"branchName","parameterValue":"$BRANCH_NAME"}]}}', 

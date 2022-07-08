@@ -10,9 +10,15 @@
 	</parent>
 	<groupId>com.cbci-demo</groupId>
 	<artifactId>spring-boot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.${buildNumber}-SNAPSHOT</version>
 	<name>spring-boot</name>
 	<description>Demo project for Spring Boot</description>
+
+	<scm>
+		<connection>scm:git:https://github.com/kshenk1/gs-spring-boot.git</connection>
+		<url>https://github.com/kshenk1/gs-spring-boot</url>
+		<developerConnection>scm:git:https://github.com/kshenk1/gs-spring-boot.git</developerConnection>
+	</scm>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -54,6 +60,18 @@
 				<!-- <configuration>
 					<executable>true</executable>
 				</configuration> -->
+			</plugin>
+
+			<!-- https://www.baeldung.com/maven-release-nexus -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>3.0.0-M6</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<autoVersionSubmodules>false</autoVersionSubmodules>
+					<releaseProfiles>releases</releaseProfiles>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

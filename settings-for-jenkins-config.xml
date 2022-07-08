@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<settings
-	xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd">
 	<profiles>
 		<profile>
 			<id>jdk-1.4</id>
@@ -30,17 +28,31 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>env-dev</id>
-			<activation>
-				<property>
-					<name>target-env</name>
-					<value>dev</value>
-				</property>
-			</activation>
-			<properties>
-				<tomcatPath>/path/to/tomcat/instance</tomcatPath>
-			</properties>
-		</profile>
+			<id>releases</id>
+			<build>
+			   <plugins>
+				  <plugin>
+					 <groupId>org.sonatype.plugins</groupId>
+					 <artifactId>nexus-staging-maven-plugin</artifactId>
+					 <version>1.5.1</version>
+					 <executions>
+						<execution>
+						   <id>default-deploy</id>
+						   <phase>deploy</phase>
+						   <goals>
+							  <goal>deploy</goal>
+						   </goals>
+						</execution>
+					 </executions>
+					 <configuration>
+						<serverId>maven-releases</serverId>
+						<nexusUrl>http://nexus-repo.cbci-demo.com/</nexusUrl>
+						<skipStaging>true</skipStaging>
+					 </configuration>
+				  </plugin>
+			   </plugins>
+			</build>
+		 </profile>
 	</profiles>
 	<servers>
 		<server>
